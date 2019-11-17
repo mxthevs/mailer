@@ -24,7 +24,7 @@ app.post("/send", async (req, res) => {
 	let transporter = nodemailer.createTransport({
 		host: "smtp.gmail.com",
 		port: 465,
-		secure: true, // true for 465, false for other ports
+		secure: true,
 		auth: {
 			user: `${process.env.USER_EMAIL}`,
 			pass: `${process.env.USER_PASSWORD}`,
@@ -34,15 +34,16 @@ app.post("/send", async (req, res) => {
 		},
 	});
 
-	// send mail with defined transport object
 	let info = await transporter.sendMail({
-		from: `"NodeMailer Contact" <${process.env.USER_EMAIL}>`, // sender address
-		to: `${process.env.ADMIN_EMAIL}`, // list of receivers
-		subject: `${req.body.subject}`, // Subject line
-		html: emailContent, // plain text body
+		from: `"NodeMailer Contact" <${process.env.USER_EMAIL}>`,
+		to: `${process.env.ADMIN_EMAIL}`,
+		subject: `${req.body.subject}`,
+		html: emailContent,
 	});
 
-	console.log("Message sent: %s", info.messageId);
+	console.log("Email enviado: %s", info.messageId);
+
+	res.redirect("back");
 });
 
 app.listen(process.env.PORT || 3000, () => {
