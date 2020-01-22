@@ -8,12 +8,13 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
 	res.send("Hello from mailer =)");
 });
 
-app.post("/send", cors(), async (req, res) => {
+app.post("/send", async (req, res) => {
 	let emailContent = `
         <h3>Remetente</h3>
         <p><b>De:</b> ${req.body.name}</p>
