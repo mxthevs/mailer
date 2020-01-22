@@ -6,7 +6,6 @@ const nodemailer = require("nodemailer");
 
 const app = express();
 
-app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -14,7 +13,7 @@ app.get("/", (req, res) => {
 	res.send("Hello from mailer =)");
 });
 
-app.post("/send", async (req, res) => {
+app.post("/send", cors(), async (req, res) => {
 	let emailContent = `
         <h3>Remetente</h3>
         <p><b>De:</b> ${req.body.name}</p>
