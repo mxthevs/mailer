@@ -43,9 +43,10 @@ app.post("/send", async (req, res) => {
 		html: emailContent,
 	});
 
-	console.log("Email enviado: %s", info.messageId);
-
-	res.redirect("back");
+	return res.json({
+		message: "Email enviado com sucesso.",
+		info: info.messageId,
+	});
 });
 
 app.listen(process.env.PORT || 3000, () => {
